@@ -13,10 +13,10 @@ def disable_service_probe(base_url, headers, domain, service_type, service_name)
 
 def disable_probes(datapower_ip, roma_port, username, password):
 	base_url = 'https://' + datapower_ip + ':' + str(roma_port) + '/'
-	headers = {'Authorization' : 'Basic ' + base64.b64encode(username + ':' + password)}
+	headers = {'Authorization' : 'Basic ' + str(base64.b64encode((username + ':' + password).encode()))}
 	enabled_probes = []
 	domains = list_domains(base_url, headers)
-	if domains.has_key('domain'):
+	if 'domain' in domains:
 		for domain in domains['domain']:
 			services_types = [ 'WSGateway', 'MultiProtocolGateway' ]
 			for service_type in services_types:
