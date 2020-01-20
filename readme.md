@@ -5,9 +5,10 @@ Using IBM DataPower Gateway, sometimes people tend to forget enabled Probes, whi
 ## How to use it?
 
 - Make sure you have activated the REST Management Interface on the desired gateways.
-- Add each gateway to the end of the script according to the sample.
+
 - **Arguments explanation:**
-  - 1st argument: your gateway IP / hostname.
-  - 2nd argument: your REST Management Interface listening port.
-  - 3rd argument: an administrative username to use.
-  - 4th argument: the password of the username.
+  - host: your gateway IP / hostname.
+  - port: your REST Management Interface listening port.
+  - username: an administrative username to use.
+  - password: the password of the username.
+  - ignore-tls-issues: should the script ignore ssl/tls issues (true or false)?
