@@ -15,7 +15,7 @@ def disable_service_probe(base_url, headers, domain, service_type, service_name)
 
 def disable_probes(datapower_ip, roma_port, username, password):
     base_url = 'https://' + datapower_ip + ':' + str(roma_port) + '/'
-    headers = {'Authorization' : 'Basic ' + str(base64.b64encode((username + ':' + password).encode()))}
+    headers = {'Authorization' : 'Basic ' + str(base64.b64encode((username + ':' + password).encode()).decode())}
     enabled_probes = []
     connected = False
     try:
@@ -27,12 +27,12 @@ def disable_probes(datapower_ip, roma_port, username, password):
         print('Connection to ' + datapower_ip + ' failed, please verify that the REST Management Interface is enabled.', file=sys.stderr)
 
     if connected:
-        if 'domain' in domains:
+        if domains.get('domain'):
             for domain in domains['domain']:
                 services_types = [ 'WSGateway', 'MultiProtocolGateway' ]
                 for service_type in services_types:
                     services_result = list_services(base_url, headers, domain['name'], service_type)
-                    if service_type in services_result:
+                    if services_result.get(service_type):
                         if (isinstance(services_result[service_type], list)):					
                             for service in services_result[service_type]:
                                 #print(domain['name'] + ' -> Found ' + service_type + ': ' + service['name'] + ' (Probe: ' + service['DebugMode'] + ')')
